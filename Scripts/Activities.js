@@ -125,33 +125,4 @@ function onCategorySelectChange() {
             availableItemsListbox.appendChild(new Option(activity.name, activity.id));
         }
     }
-
-    if(currentValue == "Adventures"){
-        let activitiesCount = activities.Adventures.length;
-        for( let i = 0 ; i < activitiesCount ; i++){
-            let item = activities.Adventures[i]
-            let newOption = new Option(item, item);
-            availableItemsListbox.appendChild(newOption);
-        }
-    }
-    else if(currentValue == "Museums"){
-        for( let item of activities.Museums){
-            let newOption = new Option(item, item);
-            availableItemsListbox.appendChild(newOption);
-        }
-    }
-    else if(currentValue == "Wine-Tastings"){
-        for( let item of activities.Wine-Tastings){
-            availableItemsListbox.appendChild(new Option(item, item));
-        }
-    }
-    else if(currentValue == "Other"){
-        for( let item of activities.Other){
-            availableItemsListbox.appendChild(new Option(item, item));
-        }
-    }
-    else{
-
-    }
-
 }
