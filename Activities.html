@@ -10,7 +10,7 @@
 </head>
 
 <body>
-<!-----------------------------begining of navbar----------------------------->
+    <!-----------------------------begining of navbar----------------------------->
     <header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
@@ -27,10 +27,13 @@
                             <a class="nav-link active" aria-current="page" href="index.html">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="Activities.html">Activies</a>
+                            <a class="nav-link" href="Activities.html">Activities</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="hiking.html">Pricing</a>
+                            <a class="nav-link" href="hiking.html">Hiking</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="video.html">More info</a>
                         </li>
                     </ul>
                     <form class="d-flex" role="search">
@@ -44,11 +47,31 @@
     </header>
 
     <!-----------end of navbar-------------->
-    <main class="container-fluid">
-        <header class="col border text-center">
-            <h1 class="text-center">Welcome</h1>
-        </header>
+    <main>
+        <!-------------------------->
+
+        <div class="container">
+            <h1 class="text-center">Activities</h1>
+            <div class="row">
+                <select id="categorySelect" name="category">
+                    <option value="">Please select a category:</option>
+                    <option value="Adventures">Adventures</option>
+                    <option value="Arts & Crafts">Arts & crafts</option>
+                    <option value="Museums">Museums</option>
+                    <option value="Wine-Tastings">Wine Tastings</option>
+                    <option value="Other">other</option>
+                   
+                </select>
+            </div>
+            <div class="row">
+                <select id="availableItemsListbox" size="10">
+
+                </select>
+            </div>
+        </div>
+
     </main>
+
 
 
 

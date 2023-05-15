@@ -1,6 +1,11 @@
 "use strict";
 
-let categories = ["Adventures", "Arts & Crafts", "Museums", "Wine Tastings", "Other"];
+
+const categorySelect = document.getElementById("categorySelect");
+const availableItemsListbox = document.getElementById("availableItemsListbox");
+
+
+let categories = ["Adventures", "Arts & Crafts", "Museums", "Wine-Tastings", "Other"];
 
 let activities = [
    {
@@ -68,7 +73,7 @@ let activities = [
         price: 0.00 
     },  
     {
-        category: "Wine Tastings", 
+        category: "Wine-Tastings", 
         id: "WT-101", 
         name: "Hastings Winery Tours and Tastings", 
         description: "Hastings Winery is a small, family owned winery in the heart of San Jose, CA. We pride ourselves on producing single vineyard, small-batch, handcrafted premium wines sourced from the finest grapes in our valley.", 
@@ -76,7 +81,7 @@ let activities = [
         price: 12.00 
     },   
     {
-        category: "Wine Tastings", 
+        category: "Wine-Tastings", 
         id: "WT-102", 
         name: "Lone Oak Winery", 
         description: "We are a family and friend centered winery that thrives to make each of our guests feel right at home. With a growing wine list of the finest local wines, we offer tours and an incredible experience. We are open for to-go, curbside, and delivery.", 
@@ -100,3 +105,53 @@ let activities = [
         price: 0.00 
     }
 ];
+
+window.onload = function () {
+
+    categorySelect.onchange = onCategorySelectChange;
+
+};
+
+
+
+function onCategorySelectChange() {
+    availableItemsListbox.options.length = 0
+    let currentValue = categorySelect.value;
+    console.log(currentValue);
+
+
+    for(let activity of activities){
+        if(activity.category == currentValue){
+            availableItemsListbox.appendChild(new Option(activity.name, activity.id));
+        }
+    }
+
+    if(currentValue == "Adventures"){
+        let activitiesCount = activities.Adventures.length;
+        for( let i = 0 ; i < activitiesCount ; i++){
+            let item = activities.Adventures[i]
+            let newOption = new Option(item, item);
+            availableItemsListbox.appendChild(newOption);
+        }
+    }
+    else if(currentValue == "Museums"){
+        for( let item of activities.Museums){
+            let newOption = new Option(item, item);
+            availableItemsListbox.appendChild(newOption);
+        }
+    }
+    else if(currentValue == "Wine-Tastings"){
+        for( let item of activities.Wine-Tastings){
+            availableItemsListbox.appendChild(new Option(item, item));
+        }
+    }
+    else if(currentValue == "Other"){
+        for( let item of activities.Other){
+            availableItemsListbox.appendChild(new Option(item, item));
+        }
+    }
+    else{
+
+    }
+
+}
