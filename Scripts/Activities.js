@@ -1,10 +1,6 @@
 "use strict";
 
 
-const categorySelect = document.getElementById("categorySelect");
-const availableItemsListbox = document.getElementById("availableItemsListbox");
-
-
 let categories = ["Adventures", "Arts & Crafts", "Museums", "Wine-Tastings", "Other"];
 
 let activities = [
@@ -106,23 +102,166 @@ let activities = [
     }
 ];
 
+const activityDetailRow = document.getElementById("activityDetailRow");
+const paymentDetailRow = document.getElementById("paymentDetailRow");
+const activitySelectionRow = document.getElementById("activitySelectionRow");
+
+const categorySelect = document.getElementById("categorySelect");
+const activitySelect = document.getElementById("activitySelect");
+
+const activityName = document.getElementById("activityName");
+const activityId = document.getElementById("activityId");
+const activityDesc = document.getElementById("activityDesc");
+const activityLocation = document.getElementById("activityLocation");
+const activityPrice = document.getElementById("activityPrice");
+
 window.onload = function () {
 
     categorySelect.onchange = onCategorySelectChange;
+    activitySelect.onchange = onActivitySelectChange;
+
+    hideActivitySelect();
+    hideActivityDetail();
 
 };
 
 
-
 function onCategorySelectChange() {
-    availableItemsListbox.options.length = 0
-    let currentValue = categorySelect.value;
-    console.log(currentValue);
+    let currentCategory = categorySelect.value;
 
+    if (currentCategory == "") {
+        hideActivitySelect();
 
-    for(let activity of activities){
-        if(activity.category == currentValue){
-            availableItemsListbox.appendChild(new Option(activity.name, activity.id));
-        }
     }
+    else {
+        console.log(`The ${currentCategory} value has been selected for Category.`)
+
+        //populate Activity List with only activities that belong to this Category.
+        populateActivitySelect(activities, currentCategory);
+
+        //Display the Activity Selection area so that an activity can be selected.
+        showActivitySelect();
+
+    }
+
+    hideActivityDetail();
+
+
+
+}
+
+
+function populateActivitySelect(fullListOfActivities, selectedCategory) {
+  
+
+    activitySelect.options.length = 0;
+    let initialOption = new Option("Please select your activity!", "");
+    activitySelect.appendChild(initialOption);
+
+    
+    for (let i = 0; i < fullListOfActivities.length; i++) {
+        let thisActivity = fullListOfActivities[i];
+
+        if (thisActivity.category == selectedCategory) {
+            let theOption = new Option(thisActivity.name, thisActivity.id);
+            activitySelect.appendChild(theOption);
+            console.log("The new option has been added to the dropdown")
+        }
+
+    }
+
+}
+
+
+function getActivitiesInCategory(fullListOfActivities, category){
+    let result = [];
+
+    // todo to the work here to build out result with only the activities that are of the correct category:
+
+
+//this is the solution without using an index.
+    for(let thisActivity of fullListOfActivities){
+   
+    if (thisActivity.category == category) {
+      result.push(thisActivity)
+    }
+  }
+
+
+    return result;
+}
+
+function onActivitySelectChange() {
+    // populate all of the fields in the activity detail area with values that pertain
+    // to the selected activity
+
+    // get the id of the selected activity:
+
+    let selectedActivityId = activitySelect.value;
+
+    if (selectedActivityId == "") {
+        hideActivityDetail();
+        hideCheckout();
+    }
+    else {
+
+        let selectedActivity = getActivityById(selectedActivityId);
+
+        activityName.innerHTML = selectedActivity.name;
+        activityId.innerHTML = selectedActivity.id;
+        activityDesc.innerHTML = selectedActivity.description;
+        activityLocation.innerHTML = selectedActivity.location;
+        activityPrice.innerHTML = selectedActivity.price;
+
+
+
+        // Display the activity detail row
+        showActivityDetail();
+
+        if (selectedActivity.price > 0) {
+            showCheckout();
+        }
+        else {
+            hideCheckout();
+        }
+
+    }
+
+}
+
+function getActivityById(id) {
+    for (let i = 0; i < activities.length; i++) {
+        let thisActivity = activities[i];
+        if (thisActivity.id == id) {
+            return thisActivity
+        }
+
+    }
+}
+
+
+function hideActivityDetail() {
+    activityDetailRow.style.display = 'none';
+    hideCheckout();
+}
+
+function showActivityDetail() {
+    activityDetailRow.style.display = 'block';
+}
+
+
+function hideCheckout() {
+    paymentDetailRow.style.display = 'none';
+}
+
+function showCheckout() {
+    paymentDetailRow.style.display = 'block';
+}
+
+function hideActivitySelect() {
+    activitySelectionRow.style.display = "none";
+}
+
+function showActivitySelect() {
+    activitySelectionRow.style.display = "block";
 }
